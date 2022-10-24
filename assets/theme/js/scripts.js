@@ -10,6 +10,14 @@ let config = {
 };
 
 
+async function sleep (ms) {
+     return new Promise(function(resolve, reject) {
+         setInterval( () => {
+            resolve("I love You !!");
+         },ms )
+    });
+}
+
 
 function setForm(){
     let html = '';
@@ -54,7 +62,7 @@ function closModal () {
 }
 
 
-function saveLocal(txt) {
+async function saveLocal(txt) {
     for (let i = 0; i < config.feilds.length; i++) {
          let name = config.feild_crypt + i, val = $('#'+name).val();
         if (val == null || val == '') {
@@ -69,17 +77,12 @@ function saveLocal(txt) {
      
     
     }
-    closModal()    
+    closModal()    ;
+    await sleep(200)
+    start()
 }
 
 
-async function sleep (ms) {
-     return new Promise(function(resolve, reject) {
-         setInterval( () => {
-            resolve("I love You !!");
-         },ms )
-    });
-}
 
 function hasSetup(){
     let _hasSetup = true;
@@ -110,19 +113,21 @@ function resize() {
 }
 
 
-$( document ).ready( async function() {
-    let _hasSetup = hasSetup();
+async function  start () {
+      let _hasSetup = hasSetup();
     await sleep(2000)
     if (!_hasSetup) {
         $('.setupLaoder').load(_basePath+'setup.html')
 
     } else {
-      //  $('.webviewLaoder').html(setWebViewHtml())
-      loadView()
+        $('.webviewLaoder').html(setWebViewHtml())
         await sleep(100);
         resize()
     }
 
-    loader.hide();   
-   
+    loader.hide();  
+}
+
+$( document ).ready( async function() {
+   await start();
 });
