@@ -12,7 +12,7 @@ exports.createBrowserWindow = () => {
     backgroundColor: "#fff",
     webPreferences: {
       nativeWindowOpen: true,
-      devTools: true, // false if you want to remove dev tools access for the user
+      devTools: false, // false if you want to remove dev tools access for the user
       contextIsolation: true,
       webviewTag: true, // https://www.electronjs.org/docs/api/webview-tag,
       preload: path.join(__dirname, "../preload.js"), // required for print function

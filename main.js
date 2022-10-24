@@ -1,18 +1,29 @@
 // Electron
 const { app, Menu } = require("electron");
 
+
+
+
 // This method will be called when Electron has finished initialization and is ready to create browser windows
 app.allowRendererProcessReuse = true;
-app.on("ready", () => {
+app.on("ready", async () => {
   // Main window
+  const { sleep,hasSetup } = require('./src/localstorage')
   const window = require("./src/window");
   mainWindow = window.createBrowserWindow(app);
+
+    const loadView = (link) => {
+      const view = new BrowserView();
+      mainWindow.setBrowserView(view);
+      view.setBounds({ x: 0, y: 0, width: 1024, height: 768 });
+      view.webContents.loadURL(link);
+  };
 
   // Option 1: Uses Webtag and load a custom html file with external content
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-  // Option 2: Load directly an URL if you don't need interface customization
-  //mainWindow.loadURL("https://github.com");
+
+
 
   // Option 3: Uses BrowserView to load an URL
   //const view = require("./src/view");
