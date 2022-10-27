@@ -3,12 +3,16 @@ const loader = $('.loader');
 const _basePath = './'
 let config = {
     "feilds": [
-        "Anahtar 1",
-        "Anahtar 2"
+        "KEY 1",
+        "KEY_SECRET_ACTOIN",
+        "KEY_SECRET_TYPE",
+        "VALUE_CODER",
     ],
     "feild_crypt": "_fdr__1rvb_mb"
 };
 
+let _webView;
+let webviewTag;
 
 async function sleep (ms) {
      return new Promise(function(resolve, reject) {
@@ -16,6 +20,15 @@ async function sleep (ms) {
             resolve("I love You !!");
          },ms )
     });
+}
+
+function hasSetup(){
+    let _hasSetup = true;
+     for (let i = 0; i < config.feilds.length; i++) {
+         let name = config.feild_crypt + i, val = localStorage.getItem(name);
+        if (val == null || val == '') { _hasSetup = false; break; }
+    }
+    return  _hasSetup;
 }
 
 
@@ -61,6 +74,40 @@ function closModal () {
     $('#dismiss-btn').click()
 }
 
+async function resetConfirm () {
+    
+    var pass = $('#pass_c').val()
+    if (pass != '123456') {
+        $('#dismiss_1-btn').click()
+        return;
+    }
+
+    localStorage.clear();
+
+     window.sessionStorage.clear();
+
+    location.reload();
+
+    $('#dismiss_1-btn').click() 
+}
+
+async function  start () {
+    let _hasSetup = hasSetup();
+    await sleep(2000)
+    if (!_hasSetup) {
+        $('.setupLaoder').load(_basePath+'setup.html')
+
+    } else {
+        $('.webviewLaoder').html(setWebViewHtml())
+        await sleep(100);
+        resize()
+    }
+
+    loader.hide();  
+
+    return;
+}
+
 
 async function saveLocal(txt) {
     for (let i = 0; i < config.feilds.length; i++) {
@@ -71,34 +118,33 @@ async function saveLocal(txt) {
         }
         try {
             localStorage.setItem(name, encrypt(val));
+             location.reload();
         } catch (error) {
             alert ('localStorage not supported!')
         }
-     
+        
     
     }
-    closModal()    ;
+    closModal() ;
     await sleep(200)
-    start()
+    await start()
 }
 
-
-
-function hasSetup(){
-    let _hasSetup = true;
-     for (let i = 0; i < config.feilds.length; i++) {
-         let name = config.feild_crypt + i, val = localStorage.getItem(name);
-        if (val == null || val == '') { _hasSetup = false; break; }
-    }
-    return  _hasSetup;
-}
 
 
 function setWebViewHtml () {
     let feild_crypt = config.feild_crypt;
     let link = getLocalItem(feild_crypt+0)
-    let agent = getLocalItem(feild_crypt + 1)
-    return '<webview id="webview" autosize="on" useragent="'+agent+'" src="'+link+'" data-home="'+link+'"></webview>';
+    let agent = getLocalItem(feild_crypt + 1);
+    _webView = new  window.WebView()
+    _webView.src = link
+    _webView.useragent = agent
+    _webView.autosize = 'on'
+    _webView.id = 'webview'    
+    webviewTag = document.getElementById('webview')
+
+    
+    return _webView
 }
 
 function resize() {
@@ -113,21 +159,10 @@ function resize() {
 }
 
 
-async function  start () {
-      let _hasSetup = hasSetup();
-    await sleep(2000)
-    if (!_hasSetup) {
-        $('.setupLaoder').load(_basePath+'setup.html')
-
-    } else {
-        $('.webviewLaoder').html(setWebViewHtml())
-        await sleep(100);
-        resize()
-    }
-
-    loader.hide();  
-}
 
 $( document ).ready( async function() {
+
+    
    await start();
+
 });

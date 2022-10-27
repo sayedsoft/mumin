@@ -2,13 +2,12 @@ const { ipcMain, BrowserWindow } = require("electron"); // https://www.electronj
 
 
 
-ipcMain.handle("print", async (event, arg) => {
+ipcMain.handle("resetstorage", async (event, arg) => {
   let printWindow = new BrowserWindow({ "auto-hide-menu-bar": true });
   printWindow.loadURL(arg);
   
   printWindow.webContents.on("did-finish-load", () => {
-    printWindow.webContents.print({
-      silent:false,
-    });
+    console.log(printWindow.webContents)
+    
   });
 });
