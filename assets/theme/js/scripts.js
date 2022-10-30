@@ -130,6 +130,7 @@ async function saveLocal(txt) {
     await start()
 }
 
+ 
 
 
 function setWebViewHtml () {
@@ -144,7 +145,8 @@ function setWebViewHtml () {
     _webView.setAttribute("allowpopups", "allowpopups");   
     webviewTag = document.getElementById('webview')
 
-    
+   
+
     return _webView
 }
 
@@ -165,5 +167,9 @@ $( document ).ready( async function() {
 
     
    await start();
+
+  
+
+ 
 
 });

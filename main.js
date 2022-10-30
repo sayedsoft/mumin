@@ -1,5 +1,5 @@
 // Electron
-const { app, Menu } = require("electron");
+const { app, Menu , session } = require("electron");
 
 let mainWindow;
 
@@ -17,8 +17,12 @@ app.on("ready", async () => {
   // Option 1: Uses Webtag and load a custom html file with external content
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-
-
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    details.requestHeaders['User-Agent'] = 'joker';
+    callback({ cancel: false, requestHeaders: details.requestHeaders });
+  });
+  
+ 
   // Option 3: Uses BrowserView to load an URL
   //const view = require("./src/view");
   //view.createBrowserView(mainWindow);
