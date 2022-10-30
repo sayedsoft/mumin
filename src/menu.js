@@ -3,48 +3,43 @@ const { Menu, ipcMain } = require('electron');
 
  const template =  [
     {
-      label: "Edit",
+      label: "Düzenle",
       submenu: [
-        { role: "undo" },
-        { role: "redo" },
+        { role: "undo" , label:"Geri Al"},
+     
         { type: "separator" },
-        { role: "cut" },
-        { role: "copy" },
-        { role: "paste" },
-        { role: "pasteandmatchstyle" },
-        { role: "delete" },
-        { role: "selectall" }
+        { role: "cut" , label: "Kes"},
+        { role: "copy" , label: "Kopyala"},
+        { role: "paste" , label: "Yapıştır"},
+        { role: "delete" , label: "Sil"},
+    
       ],
     },
     {
-        label: 'View',
+        label: 'Görünüm',
         submenu: [
           {
-            label: 'Reload',
-            accelerator: 'CmdOrCtrl+R',
-            click (item, focusedWindow) {
-              console.log('Developer')
-              if (focusedWindow) focusedWindow.reload()
-            }
+            role: 'resetzoom' , label: "Yenile"
           },
+          { role: "forcereload" , label: "Yenilemeye Zorla"},
             
           {
             type: 'separator'
           },
           {
-            role: 'resetzoom'
+            role: 'resetzoom' , label: "Sıfırla"
           },
           {
-            role: 'zoomin'
+            role: 'zoomin', label: "Yakınlaştır"
           },
           {
-            role: 'zoomout'
+            role: 'zoomout', label: "Uzaklaştır"
           },
           {
             type: 'separator'
           },
           {
-            role: 'togglefullscreen'
+            role: 'togglefullscreen', label: "Tam Ekran"
           }
         ]
       },

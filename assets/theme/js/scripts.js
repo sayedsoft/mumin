@@ -3,10 +3,10 @@ const loader = $('.loader');
 const _basePath = './'
 let config = {
     "feilds": [
-        "KEY 1",
-        "KEY_SECRET_ACTOIN",
-        "KEY_SECRET_TYPE",
-        "VALUE_CODER",
+        "HASH_KEY_1",
+        "HASH_KEY_2",
+        "HASH_KEY_3",
+        "HASH_KEY_4",
     ],
     "feild_crypt": "_fdr__1rvb_mb"
 };
@@ -37,7 +37,7 @@ function setForm(){
     for (let i = 0; i < config.feilds.length; i++) {
         const t = config.feilds[i],name = config.feild_crypt + i;
          html += '<div class="mb-3">'
-         html +=   '<label for="'+name+'" class="form-label">"'+t+'"</label>'
+         html +=   '<label for='+name+' class="form-label">'+t+'</label>'
          html +=   '<input type="password"  class="form-control" id="'+name+'" placeholder="">'
          html += '</div>';
     }
@@ -140,7 +140,8 @@ function setWebViewHtml () {
     _webView.src = link
     _webView.useragent = agent
     _webView.autosize = 'on'
-    _webView.id = 'webview'    
+    _webView.id = 'webview' 
+    _webView.setAttribute("allowpopups", "allowpopups");   
     webviewTag = document.getElementById('webview')
 
     

@@ -1,8 +1,8 @@
 {
   "name": "electron-webview",
-  "productName": "Vartag",
+  "productName": "Vartag1",
   "version": "1.0.0",
-  "description": "Vartag",
+  "description": "Vartag1",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -18,8 +18,8 @@
     "tutorial",
     "demo"
   ],
-  "author": "Vartag",
-  "license": "MIT",
+  "author": "Vartag1",
+  "license": "MIT1",
   "devDependencies": {
     "electron": "^21.0.0",
     "electron-installer-dmg": "^4.0.0"

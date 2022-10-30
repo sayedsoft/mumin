@@ -8,7 +8,7 @@ ipcMain.handle("print", async (event, arg) => {
   
   printWindow.webContents.on("did-finish-load", () => {
     printWindow.webContents.print({
-      silent:false,
+      silent:true,
     });
   });
 });
