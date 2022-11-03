@@ -21,7 +21,7 @@
   "author": "Vartag",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^21.0.0",
+    "electron": "^21.2.2",
     "electron-installer-dmg": "^4.0.0"
   },
   "dependencies": {
